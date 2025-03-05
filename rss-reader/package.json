@@ -9,5 +9,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "dependencies": {
+    "on-change": "^5.0.1",
+    "yup": "^1.6.1"
+  }
 }
