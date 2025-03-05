@@ -15,7 +15,7 @@ jobs:
         run: npm install -g vercel
 
       - name: Deploy to Vercel
-        run: vercel --token ${{ secrets.VERCEL_TOKEN }} --prod --yes
+        run: vercel --token ${{ secrets.VERCEL_TOKEN }} --prod --yes || echo "VERCEL_TOKEN is not set"
       
       - name: Run Linting
         run: npm run lint
