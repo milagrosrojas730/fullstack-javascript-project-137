@@ -5,7 +5,7 @@ import { fetchRss, updateFeeds } from './rss.js';
 import initWatchers from './watchers.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('✅ DOM completamente cargado');
+  console.log('DOM completamente cargado');
 
   const form = document.getElementById('rss-form');
   const input = document.getElementById('rss-input');
