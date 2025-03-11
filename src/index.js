@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.scss';
-
+import './i18n';
 const form = document.getElementById('rss-form');
 
 form.addEventListener('submit', (event) => {
