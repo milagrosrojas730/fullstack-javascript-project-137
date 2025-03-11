@@ -4,18 +4,16 @@ on:
   push:
     branches:
       - main
+
 jobs:
-  deploy: 
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
-        
+
       - name: Install Vercel CLI
         run: npm install -g vercel
 
       - name: Deploy to Vercel
-        run: vercel --token ${{ secrets.VERCEL_TOKEN }} --prod --yes || echo "VERCEL_TOKEN is not set"
-      
-      - name: Run Linting
-        run: npm run lint
+        run: vercel --token ${{ secrets.VERCEL_TOKEN }} --prod --yes

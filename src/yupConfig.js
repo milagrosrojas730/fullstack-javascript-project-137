@@ -1,13 +1,17 @@
 import * as yup from 'yup';
-import i18n from './i18n';
+import i18next from './i18n.js';
 
 yup.setLocale({
   mixed: {
-    required: i18n.t('No debe estar vacío'),
+    required: () => i18next.t('form.errors.required'),
   },
   string: {
-    url: i18n.t('El enlace debe ser una URL válida'),
-  }
+    url: () => i18next.t('form.errors.invalid_url'),
+  },
 });
 
-export default yup;
+const urlSchema = yup.object().shape({
+  url: yup.string().url().required(),
+});
+
+export default urlSchema;

@@ -1,2 +1,4 @@
 node_modules/
-dist/
+index/
+index/index.html
+index/bundle.js
