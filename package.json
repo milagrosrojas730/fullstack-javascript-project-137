@@ -4,9 +4,9 @@
   "description": "[![Actions Status](https://github.com/milagrosrojas730/fullstack-javascript-project-137/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/milagrosrojas730/fullstack-javascript-project-137/actions)",
   "main": "index.js",
   "type": "module",
-  "scripts": {
-    "start": "webpack serve",
-    "build": "NODE_ENV=production webpack --mode production",
+"scripts": {
+    "start": "webpack serve --open",
+    "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
