@@ -47,7 +47,7 @@ const updateFeeds = (state, watchedState) => {
         const newPosts = posts.filter((post) => !existingPostLinks.has(post.link));
 
         if (newPosts.length > 0) {
-          console.log(`🔄 ${newPosts.length} nuevos posts detectados en ${feed.title}`);
+          console.log(` ${newPosts.length} nuevos posts detectados en ${feed.title}`);
           watchedState.posts = [...newPosts, ...watchedState.posts];
         }
       })

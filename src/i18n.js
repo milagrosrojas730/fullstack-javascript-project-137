@@ -6,7 +6,7 @@ import en from './sr/en.js';
 i18next
   .use(Backend)
   .init({
-    lng: 'en', 
+    lng: 'en',
     fallbackLng: 'en',
     debug: true,
     resources: {
@@ -14,7 +14,6 @@ i18next
       en,
     },
   });
-
 
 window.i18next = i18next;
 
