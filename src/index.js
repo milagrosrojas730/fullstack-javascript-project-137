@@ -5,7 +5,7 @@ import { fetchRss, updateFeeds } from './rss.js';
 import initWatchers from './watchers.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log(' DOM completamente cargado');
+  console.log('DOM completamente cargado');
 
   const form = document.getElementById('rss-form');
   const input = document.getElementById('rss-input');
@@ -30,12 +30,15 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const schema = yup.object().shape({
-    url: yup.string().url(i18next.t('form.errors.invalid')).required(i18next.t('form.errors.required')),
+    url: yup
+      .string()
+      .url(i18next.t('form.errors.invalid'))
+      .required(i18next.t('form.errors.required')),
   });
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-    console.log(' Formulario enviado');
+    console.log('Formulario enviado');
 
     const url = input.value.trim();
 
@@ -49,19 +52,15 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .then(({ title, description, posts }) => {
         watchedState.feeds.push({ url, title, description });
-
         watchedState.posts = [...posts, ...watchedState.posts];
-
         watchedState.errors = null;
 
-        let successMessage = document.getElementById('rss-success-message');
-        if (!successMessage) {
-          successMessage = document.createElement('p');
-          successMessage.id = 'rss-success-message';
-          input.insertAdjacentElement('afterend', successMessage);
+        const successMessage = document.getElementById('rss-success-message');
+        if (successMessage) {
+          successMessage.textContent = 'RSS has been loaded';
+          successMessage.style.display = 'block';
+          successMessage.style.color = 'green';
         }
-        successMessage.textContent = 'RSS has been loaded';
-        successMessage.style.color = 'green';
 
         input.classList.remove('is-invalid');
         input.classList.add('is-valid');
@@ -83,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const successMessage = document.getElementById('rss-success-message');
         if (successMessage) {
           successMessage.textContent = '';
+          successMessage.style.display = 'none';
         }
 
         input.classList.remove('is-valid');
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
         feedback.textContent = err.message;
         feedback.style.display = 'block';
 
-        console.error(' Error al agregar feed:', err.message);
+        console.error('Error al agregar feed:', err.message);
       });
   });
 

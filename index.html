@@ -11,12 +11,13 @@
     <h1 class="mb-4">RSS Reader</h1>
 
     <form id="rss-form" class="mb-3">
-        <div class="mb-3">
-            <input type="text" class="form-control" id="rss-input" placeholder="Enter the feed URL" aria-label="url" required>
-            <div id="rss-feedback" class="invalid-feedback" style="display: none;"></div>
-        </div>
-        <button type="submit" class="btn btn-primary">Add Feed</button>
-    </form>
+  <div class="mb-3">
+    <input type="text" class="form-control" id="rss-input" placeholder="Enter the feed URL" aria-label="url" required>
+    <div id="rss-feedback" class="invalid-feedback" style="display: none;"></div>
+    <p id="rss-success-message" class="text-success" style="display: none;"></p> 
+  </div>
+  <button type="submit" class="btn btn-primary">Add Feed</button>
+</form>
     <div id="rss-feeds"></div>
     <div id="rss-posts"></div>
 
