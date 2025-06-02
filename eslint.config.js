@@ -1,9 +1,9 @@
 export default [
   {
-    ignores: ['node_modules/', 'dist/'], // Ignora directorios innecesarios
+    ignores: ['node_modules/', 'dist/'],
   },
   {
-    files: ['**/*.js'], // Se aplica a todos los archivos JS
+    files: ['**/*.js'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -16,14 +16,14 @@ export default [
       semi: ['error', 'always'],
       'comma-dangle': ['error', 'always-multiline'],
       'no-trailing-spaces': 'error',
-      'no-multiple-empty-lines': ['error', { max: 1 }], // 🔹 Máximo 1 línea en blanco
-      'object-curly-newline': ['error', { consistent: true }], // 🔹 No exige saltos de línea dentro de objetos
-      'object-curly-spacing': ['error', 'always'], // 🔹 Espaciado dentro de objetos
+      'no-multiple-empty-lines': ['error', { max: 1 }],
+      'object-curly-newline': ['error', { consistent: true }],
+      'object-curly-spacing': ['error', 'always'],
       'prefer-destructuring': ['error', { object: true, array: true }],
-      'quote-props': ['error', 'as-needed'], // 🔹 Solo usar comillas en propiedades si es necesario
-      'implicit-arrow-linebreak': 'off', // 🔹 Permite arrow functions en una sola línea
-      'function-paren-newline': ['error', 'consistent'], // 🔹 Evita errores de salto de línea en paréntesis de funciones
-      'import/prefer-default-export': 'off', // 🔹 No obliga a usar `export default`
+      'quote-props': ['error', 'as-needed'],
+      'implicit-arrow-linebreak': 'off',
+      'function-paren-newline': ['error', 'consistent'],
+      'import/prefer-default-export': 'off',
     },
   },
 ];

@@ -1,5 +1,7 @@
 node_modules
 *.log
 dist/
+dist/index.html
+dist/bundle.js
 tmp
 coverage

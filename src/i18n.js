@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 import Backend from 'i18next-http-backend';
-import es from './sr/es.js';
-import en from './sr/en.js';
+import es from './locales/es.js';
+import en from './locales/en.js';
 
 i18next
   .use(Backend)
