@@ -10,8 +10,8 @@ i18next
     fallbackLng: 'en',
     debug: true,
     resources: {
+      en, // ✅ ya incluye "translation"
       es,
-      en,
     },
   });
 
