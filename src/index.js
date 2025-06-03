@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const successMessage = document.getElementById('rss-success-message');
         if (successMessage) {
-          successMessage.textContent = 'RSS has been loaded';
+          successMessage.textContent = i18next.t('form.success');
           successMessage.style.display = 'block';
           successMessage.style.color = 'green';
         }
