@@ -1,104 +1,108 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as yup from 'yup';
-import i18next from './i18n.js';
+import { i18next, i18nInstance } from './i18n.js';
 import { fetchRss, updateFeeds } from './rss.js';
 import initWatchers from './watchers.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOM completamente cargado');
+i18nInstance.then(() => {
+  console.log('i18next inicializado');
 
-  const form = document.getElementById('rss-form');
-  const input = document.getElementById('rss-input');
-  const feedback = document.getElementById('rss-feedback');
-  const feedsContainer = document.getElementById('rss-feeds');
-  const postsContainer = document.getElementById('rss-posts');
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM completamente cargado');
 
-  const state = {
-    feeds: [],
-    posts: [],
-    errors: null,
-    readPosts: new Set(),
-  };
+    const form = document.getElementById('rss-form');
+    const input = document.getElementById('rss-input');
+    const feedback = document.getElementById('rss-feedback');
+    const feedsContainer = document.getElementById('rss-feeds');
+    const postsContainer = document.getElementById('rss-posts');
 
-  window.state = state;
+    const state = {
+      feeds: [],
+      posts: [],
+      errors: null,
+      readPosts: new Set(),
+    };
 
-  const watchedState = initWatchers(state, {
-    input,
-    feedback,
-    feedsContainer,
-    postsContainer,
-  });
+    window.state = state;
 
-  const schema = yup.object().shape({
-    url: yup
-      .string()
-      .url(i18next.t('form.errors.invalid'))
-      .required(i18next.t('form.errors.required')),
-  });
+    const watchedState = initWatchers(state, {
+      input,
+      feedback,
+      feedsContainer,
+      postsContainer,
+    });
 
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    console.log('Formulario enviado');
+    const schema = yup.object().shape({
+      url: yup
+        .string()
+        .url(i18next.t('form.errors.invalid'))
+        .required(i18next.t('form.errors.required')),
+    });
 
-    const url = input.value.trim();
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      console.log('Formulario enviado');
 
-    schema
-      .validate({ url })
-      .then(() => {
-        if (state.feeds.some((feed) => feed.url === url)) {
-          throw new Error(i18next.t('form.errors.duplicate'));
-        }
-        return fetchRss(url);
-      })
-      .then(({ title, description, posts }) => {
-        watchedState.feeds.push({ url, title, description });
-        watchedState.posts = [...posts, ...watchedState.posts];
-        watchedState.errors = null;
+      const url = input.value.trim();
 
-        const successMessage = document.getElementById('rss-success-message');
-        if (successMessage) {
-          successMessage.textContent = i18next.t('form.success');
-          successMessage.style.display = 'block';
-          successMessage.style.color = 'green';
-        }
+      schema
+        .validate({ url })
+        .then(() => {
+          if (state.feeds.some((feed) => feed.url === url)) {
+            throw new Error(i18next.t('form.errors.duplicate'));
+          }
+          return fetchRss(url);
+        })
+        .then(({ title, description, posts }) => {
+          watchedState.feeds.push({ url, title, description });
+          watchedState.posts = [...posts, ...watchedState.posts];
+          watchedState.errors = null;
 
-        input.classList.remove('is-invalid');
-        input.classList.add('is-valid');
-        feedback.textContent = '';
-        feedback.style.display = 'none';
+          const successMessage = document.getElementById('rss-success-message');
+          if (successMessage) {
+            successMessage.textContent = i18next.t('form.success');
+            successMessage.style.display = 'block';
+            successMessage.style.color = 'green';
+          }
 
-        console.log('Feed agregado correctamente:', { title, description, posts });
+          input.classList.remove('is-invalid');
+          input.classList.add('is-valid');
+          feedback.textContent = '';
+          feedback.style.display = 'none';
 
-        form.reset();
-        input.focus();
+          console.log('Feed agregado correctamente:', { title, description, posts });
 
-        if (state.feeds.length === 1) {
-          updateFeeds(state, watchedState);
-        }
-      })
-      .catch((err) => {
-        watchedState.errors = err.message;
+          form.reset();
+          input.focus();
 
-        const successMessage = document.getElementById('rss-success-message');
-        if (successMessage) {
-          successMessage.textContent = '';
-          successMessage.style.display = 'none';
-        }
+          if (state.feeds.length === 1) {
+            updateFeeds(state, watchedState);
+          }
+        })
+        .catch((err) => {
+          watchedState.errors = err.message;
 
-        input.classList.remove('is-valid');
-        input.classList.add('is-invalid');
-        feedback.textContent = err.message;
-        feedback.style.display = 'block';
+          const successMessage = document.getElementById('rss-success-message');
+          if (successMessage) {
+            successMessage.textContent = '';
+            successMessage.style.display = 'none';
+          }
 
-        console.error('Error al agregar feed:', err.message);
-      });
-  });
+          input.classList.remove('is-valid');
+          input.classList.add('is-invalid');
+          feedback.textContent = err.message;
+          feedback.style.display = 'block';
 
-  postsContainer.addEventListener('click', (event) => {
-    if (event.target.dataset.postLink) {
-      const { postLink } = event.target.dataset;
-      state.readPosts.add(postLink);
-      watchedState.posts = [...state.posts];
-    }
+          console.error('Error al agregar feed:', err.message);
+        });
+    });
+
+    postsContainer.addEventListener('click', (event) => {
+      if (event.target.dataset.postLink) {
+        const { postLink } = event.target.dataset;
+        state.readPosts.add(postLink);
+        watchedState.posts = [...state.posts];
+      }
+    });
   });
 });
