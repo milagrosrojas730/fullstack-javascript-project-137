@@ -3,6 +3,7 @@ export default {
     form: {
       placeholder: 'Introduce la URL del feed',
       submit: 'Agregar Feed',
+      success: 'El RSS ha sido cargado correctamente',
       errors: {
         invalid: 'La URL no es válida',
         duplicate: 'El feed ya existe',
