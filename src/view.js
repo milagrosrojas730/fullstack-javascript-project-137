@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+
 const renderFeedback = (input, feedback, message, isValid) => {
   if (isValid) {
     input.classList.remove('is-invalid');
